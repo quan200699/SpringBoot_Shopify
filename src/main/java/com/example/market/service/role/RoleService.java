@@ -1,6 +1,6 @@
 package com.example.market.service.role;
 
-import com.example.market.model.Role;
+import com.example.market.model.auth.Role;
 import com.example.market.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

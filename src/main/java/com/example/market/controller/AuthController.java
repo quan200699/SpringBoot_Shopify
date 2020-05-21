@@ -1,7 +1,7 @@
 package com.example.market.controller;
 
-import com.example.market.model.JwtResponse;
-import com.example.market.model.User;
+import com.example.market.model.auth.JwtResponse;
+import com.example.market.model.auth.User;
 import com.example.market.service.JwtService;
 import com.example.market.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

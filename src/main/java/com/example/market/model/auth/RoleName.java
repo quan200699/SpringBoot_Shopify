@@ -1,4 +1,4 @@
-package com.example.market.model;
+package com.example.market.model.auth;
 
 public enum RoleName {
     ROLE_ADMIN,

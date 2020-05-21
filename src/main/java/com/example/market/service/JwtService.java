@@ -1,6 +1,6 @@
 package com.example.market.service;
 
-import com.example.market.model.UserPrinciple;
+import com.example.market.model.auth.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

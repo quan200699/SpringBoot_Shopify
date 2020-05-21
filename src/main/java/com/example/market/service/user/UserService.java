@@ -1,7 +1,7 @@
 package com.example.market.service.user;
 
-import com.example.market.model.User;
-import com.example.market.model.UserPrinciple;
+import com.example.market.model.auth.User;
+import com.example.market.model.auth.UserPrinciple;
 import com.example.market.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

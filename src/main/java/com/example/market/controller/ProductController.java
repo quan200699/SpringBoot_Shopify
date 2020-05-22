@@ -41,4 +41,13 @@ public class ProductController {
             return new ResponseEntity<>(product, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        return productOptional.map(product -> {
+            productService.remove(id);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

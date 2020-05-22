@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             roles.add(new Role(1L, RoleName.ROLE_ADMIN.toString()));
             admin.setEmail("admin");
             admin.setFullName("admin");
-            admin.setPassword(passwordEncoder.encode("123456"));
+            admin.setPassword("123456");
             admin.setRoles(roles);
             userService.save(admin);
         }

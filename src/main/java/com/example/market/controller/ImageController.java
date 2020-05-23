@@ -31,4 +31,13 @@ public class ImageController {
         Optional<Image> imageOptional = imageService.findById(id);
         return imageOptional.map(image -> new ResponseEntity<>(image, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Image> updateImage(@PathVariable Long id, @RequestBody Image image) {
+        Optional<Image> imageOptional = imageService.findById(id);
+        return imageOptional.map(image1 -> {
+            image.setId(image1.getId());
+            return new ResponseEntity<>(imageService.save(image), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

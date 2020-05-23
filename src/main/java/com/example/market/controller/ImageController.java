@@ -5,10 +5,7 @@ import com.example.market.service.image.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -20,5 +17,10 @@ public class ImageController {
     @GetMapping
     public ResponseEntity<Iterable<Image>> getAllImage() {
         return new ResponseEntity<>(imageService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Image> createNewImage(@RequestBody Image image) {
+        return new ResponseEntity<>(imageService.save(image), HttpStatus.OK);
     }
 }

@@ -11,7 +11,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String imageUrl;
+    private String url;
 
     @ManyToOne
     private Product product;

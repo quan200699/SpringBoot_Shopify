@@ -40,4 +40,13 @@ public class ImageController {
             return new ResponseEntity<>(imageService.save(image), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Image> deleteImage(@PathVariable Long id) {
+        Optional<Image> imageOptional = imageService.findById(id);
+        return imageOptional.map(image -> {
+            imageService.remove(id);
+            return new ResponseEntity<>(image, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

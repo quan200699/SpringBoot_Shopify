@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/images")
@@ -22,5 +24,11 @@ public class ImageController {
     @PostMapping
     public ResponseEntity<Image> createNewImage(@RequestBody Image image) {
         return new ResponseEntity<>(imageService.save(image), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Image> getImage(@PathVariable Long id) {
+        Optional<Image> imageOptional = imageService.findById(id);
+        return imageOptional.map(image -> new ResponseEntity<>(image, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

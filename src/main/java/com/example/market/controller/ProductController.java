@@ -1,6 +1,8 @@
 package com.example.market.controller;
 
+import com.example.market.model.Image;
 import com.example.market.model.Product;
+import com.example.market.service.image.IImageService;
 import com.example.market.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private IImageService imageService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProduct() {
@@ -49,5 +54,12 @@ public class ProductController {
             productService.remove(id);
             return new ResponseEntity<>(product, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/images")
+    public ResponseEntity<Iterable<Image>> getAllImageByProduct(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        return productOptional.map(product -> new ResponseEntity<>(imageService.findAllByProduct(product), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

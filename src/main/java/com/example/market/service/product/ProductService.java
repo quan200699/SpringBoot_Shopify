@@ -1,5 +1,6 @@
 package com.example.market.service.product;
 
+import com.example.market.model.Category;
 import com.example.market.model.Product;
 import com.example.market.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ProductService implements IProductService {
     @Override
     public void remove(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Product> findAllByCategory(Category category) {
+        return productRepository.findAllByCategory(category);
     }
 }

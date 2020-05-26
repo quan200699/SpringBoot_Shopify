@@ -37,4 +37,9 @@ public class ProductService implements IProductService {
     public Iterable<Product> findAllByCategory(Category category) {
         return productRepository.findAllByCategory(category);
     }
+
+    @Override
+    public Iterable<Product> findAllBySaleOffGreaterThanZero() {
+        return productRepository.findAllBySaleOffGreaterThanZero();
+    }
 }

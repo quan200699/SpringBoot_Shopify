@@ -62,4 +62,9 @@ public class ProductController {
         return productOptional.map(product -> new ResponseEntity<>(imageService.findAllByProduct(product), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/sale-off")
+    public ResponseEntity<Iterable<Product>> getAllProductWithSaleOffGreaterThan() {
+        return new ResponseEntity<>(productService.findAllBySaleOffGreaterThanZero(), HttpStatus.OK);
+    }
 }

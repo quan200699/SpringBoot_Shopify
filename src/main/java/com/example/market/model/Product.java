@@ -3,6 +3,7 @@ package com.example.market.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -36,6 +37,8 @@ public class Product {
     private String description;
 
     private int saleOff;
+
+    private Date createdDate;
 
     @ManyToOne
     private Category category;

@@ -47,4 +47,9 @@ public class ProductService implements IProductService {
     public Iterable<Product> findAllByPriceCondition(double minValue, double maxValue) {
         return productRepository.findAllByPriceCondition(minValue, maxValue);
     }
+
+    @Override
+    public Iterable<Product> findAllProductOrderByDate() {
+        return productRepository.findAllProductOrderByDate();
+    }
 }

@@ -72,4 +72,9 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> getAllProductByPriceCondition(@RequestParam("min") int minValue, @RequestParam("max") int maxValue) {
         return new ResponseEntity<>(productService.findAllByPriceCondition(minValue, maxValue), HttpStatus.OK);
     }
+
+    @GetMapping("/latest")
+    public ResponseEntity<Iterable<Product>> getAllProductLatest() {
+        return new ResponseEntity<>(productService.findAllProductOrderByDate(), HttpStatus.OK);
+    }
 }

@@ -10,4 +10,6 @@ public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllBySaleOffGreaterThanZero();
 
     Iterable<Product> findAllByPriceCondition(double minValue, double maxValue);
+
+    Iterable<Product> findAllProductOrderByDate();
 }

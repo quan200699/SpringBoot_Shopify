@@ -6,6 +6,7 @@ import com.example.market.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,9 @@ public class ProductService implements IProductService {
 
     @Override
     public Product save(Product product) {
+        long currentTime = System.currentTimeMillis();
+        Date currentDate = new Date(currentTime);
+        product.setCreatedDate(currentDate);
         return productRepository.save(product);
     }
 

@@ -35,6 +35,8 @@ public class Product {
     @Column(nullable = false)
     private String description;
 
+    private int saleOff;
+
     @ManyToOne
     private Category category;
 }

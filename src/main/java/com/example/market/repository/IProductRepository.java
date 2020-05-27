@@ -12,4 +12,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.saleOff>0")
     Iterable<Product> findAllBySaleOffGreaterThanZero();
+
+    @Query("select p from Product  p where p.price >= ?1 and p.price <= ?2")
+    Iterable<Product> findAllByPriceCondition(double minValue, double maxValue);
 }

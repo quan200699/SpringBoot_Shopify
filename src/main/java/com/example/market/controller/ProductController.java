@@ -67,4 +67,9 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> getAllProductWithSaleOffGreaterThan() {
         return new ResponseEntity<>(productService.findAllBySaleOffGreaterThanZero(), HttpStatus.OK);
     }
+
+    @GetMapping("/price")
+    public ResponseEntity<Iterable<Product>> getAllProductByPriceCondition(@RequestParam("min") int minValue, @RequestParam("max") int maxValue) {
+        return new ResponseEntity<>(productService.findAllByPriceCondition(minValue, maxValue), HttpStatus.OK);
+    }
 }

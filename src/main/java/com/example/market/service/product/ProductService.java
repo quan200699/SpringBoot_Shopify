@@ -42,4 +42,9 @@ public class ProductService implements IProductService {
     public Iterable<Product> findAllBySaleOffGreaterThanZero() {
         return productRepository.findAllBySaleOffGreaterThanZero();
     }
+
+    @Override
+    public Iterable<Product> findAllByPriceCondition(double minValue, double maxValue) {
+        return productRepository.findAllByPriceCondition(minValue, maxValue);
+    }
 }

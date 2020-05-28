@@ -18,4 +18,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p order by p.createdDate asc ")
     Iterable<Product> findAllProductOrderByDate();
+
+    Iterable<Product> findAllByNameContaining(String name);
 }

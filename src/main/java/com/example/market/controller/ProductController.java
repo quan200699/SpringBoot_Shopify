@@ -77,4 +77,9 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> getAllProductLatest() {
         return new ResponseEntity<>(productService.findAllProductOrderByDate(), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Product>> getAllProductByName(@RequestParam(name = "name") String name) {
+        return new ResponseEntity<>(productService.findAllByNameContaining(name), HttpStatus.OK);
+    }
 }

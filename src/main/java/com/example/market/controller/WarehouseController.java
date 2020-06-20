@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/warehouse")
+@RequestMapping("/warehouses")
 public class WarehouseController {
 
     @Autowired

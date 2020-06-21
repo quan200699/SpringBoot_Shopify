@@ -31,4 +31,9 @@ public class OrdersService implements IOrdersService {
     public void remove(Long id) {
         ordersRepository.deleteById(id);
     }
+
+    @Override
+    public Integer sumProductAmount(Long id) {
+        return ordersRepository.sumProductAmount(id);
+    }
 }

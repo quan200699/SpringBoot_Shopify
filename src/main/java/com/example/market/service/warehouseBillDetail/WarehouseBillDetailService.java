@@ -37,4 +37,9 @@ public class WarehouseBillDetailService implements IWarehouseBillDetailService {
     public Iterable<WarehouseBillDetail> findAllByWareHouseBill(WareHouseBill warehouseBill) {
         return warehouseBillDetailRepository.findAllByWareHouseBill(warehouseBill);
     }
+
+    @Override
+    public int sumAllProduct(Long productId) {
+        return warehouseBillDetailRepository.sumAllProduct(productId);
+    }
 }

@@ -51,4 +51,12 @@ public class WarehouseBillDetailController {
         warehouseBillDetailService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/sum")
+    public ResponseEntity<Integer> sumAmount(@PathVariable Long id) {
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(warehouseBillDetailService.sumAllProduct(id), HttpStatus.OK);
+    }
 }

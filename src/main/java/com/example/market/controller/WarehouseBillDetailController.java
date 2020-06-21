@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/warehouse-bill-details")
+@CrossOrigin("*")
 public class WarehouseBillDetailController {
     @Autowired
     private IWarehouseBillDetailService warehouseBillDetailService;

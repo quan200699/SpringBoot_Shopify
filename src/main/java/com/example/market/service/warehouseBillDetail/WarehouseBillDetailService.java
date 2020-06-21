@@ -1,5 +1,6 @@
 package com.example.market.service.warehouseBillDetail;
 
+import com.example.market.model.WareHouseBill;
 import com.example.market.model.WarehouseBillDetail;
 import com.example.market.repository.IWarehouseBillDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class WarehouseBillDetailService implements IWarehouseBillDetailService {
     @Override
     public void remove(Long id) {
         warehouseBillDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<WarehouseBillDetail> findAllByWareHouseBill(WareHouseBill warehouseBill) {
+        return warehouseBillDetailRepository.findAllByWareHouseBill(warehouseBill);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.market.service.warehousingbill;
 
-import com.example.market.model.WarehousingBill;
+import com.example.market.model.WareHouseBill;
 import com.example.market.repository.IWarehousingBillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,18 +13,18 @@ public class WarehousingBillService implements IWarehousingBillService {
     private IWarehousingBillRepository warehosingBillRepository;
 
     @Override
-    public Iterable<WarehousingBill> findAll() {
+    public Iterable<WareHouseBill> findAll() {
         return warehosingBillRepository.findAll();
     }
 
     @Override
-    public Optional<WarehousingBill> findById(Long id) {
+    public Optional<WareHouseBill> findById(Long id) {
         return warehosingBillRepository.findById(id);
     }
 
     @Override
-    public WarehousingBill save(WarehousingBill warehousingBill) {
-        return warehosingBillRepository.save(warehousingBill);
+    public WareHouseBill save(WareHouseBill wareHouseBill) {
+        return warehosingBillRepository.save(wareHouseBill);
     }
 
     @Override

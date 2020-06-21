@@ -1,8 +1,7 @@
 package com.example.market.repository;
 
-import com.example.market.model.Warehouse;
-import com.example.market.model.WarehousingBill;
+import com.example.market.model.WareHouseBill;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IWarehousingBillRepository extends JpaRepository<WarehousingBill, Long> {
+public interface IWarehousingBillRepository extends JpaRepository<WareHouseBill, Long> {
 }

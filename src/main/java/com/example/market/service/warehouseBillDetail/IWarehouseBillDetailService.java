@@ -7,5 +7,5 @@ import com.example.market.service.IGeneralService;
 public interface IWarehouseBillDetailService extends IGeneralService<WarehouseBillDetail> {
     Iterable<WarehouseBillDetail> findAllByWareHouseBill(WareHouseBill warehouseBill);
 
-    int sumAllProduct(Long productId);
+    Integer sumAllProduct(Long productId);
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface IWarehouseBillDetailRepository extends JpaRepository<WarehouseBillDetail, Long> {
     Iterable<WarehouseBillDetail> findAllByWareHouseBill(WareHouseBill warehouseBill);
 
-    @Query("SELECT SUM(d.amount) From WarehouseBillDetail d left join Product p on d.product.id = p.id where d.product.id = ?1 group by d.product.id")
-    int sumAllProduct(Long productId);
+    @Query("SELECT SUM(d.amount) From Product p left join WarehouseBillDetail d on d.product.id = p.id where p.id = ?1 group by p.id")
+    Integer sumAllProduct(Long productId);
 }

@@ -39,7 +39,7 @@ public class WarehouseBillDetailService implements IWarehouseBillDetailService {
     }
 
     @Override
-    public int sumAllProduct(Long productId) {
+    public Integer sumAllProduct(Long productId) {
         return warehouseBillDetailRepository.sumAllProduct(productId);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.market.controller;
 
+import com.example.market.model.Item;
 import com.example.market.model.ShoppingCart;
 import com.example.market.model.auth.User;
+import com.example.market.service.item.IItemService;
 import com.example.market.service.shoppingCart.IShoppingCartService;
 import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ShoppingCartController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IItemService itemService;
 
     @GetMapping
     public ResponseEntity<Iterable<ShoppingCart>> getAllShoppingCart() {
@@ -58,12 +63,19 @@ public class ShoppingCartController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<ShoppingCart> findShoppingCartByUser(@PathVariable Long id) {
-        Optional<User> user = userService.findById(id);
-        if (!user.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Optional<ShoppingCart> shoppingCartOptional = shoppingCartService.findByUser(user.get());
-        return shoppingCartOptional.map(shoppingCart -> new ResponseEntity<>(shoppingCart, HttpStatus.OK))
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(user -> {
+            Optional<ShoppingCart> shoppingCartOptional = shoppingCartService.findByUser(userOptional.get());
+            return shoppingCartOptional.map(shoppingCart -> new ResponseEntity<>(shoppingCart, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+    }
+
+    @GetMapping("/{id}/items")
+    public ResponseEntity<Iterable<Item>> getAllItemByShoppingCart(@PathVariable Long id) {
+        Optional<ShoppingCart> shoppingCartOptional = shoppingCartService.findById(id);
+        return shoppingCartOptional.map(shoppingCart -> new ResponseEntity<>(itemService.findAllByShoppingCart(shoppingCart), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.market.service.item;
 
 import com.example.market.model.Item;
+import com.example.market.model.ShoppingCart;
 import com.example.market.repository.IItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class ItemService implements IItemService {
     @Override
     public void remove(Long id) {
         itemRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Item> findAllByShoppingCart(ShoppingCart shoppingCart) {
+        return itemRepository.findAllByShoppingCart(shoppingCart);
     }
 }

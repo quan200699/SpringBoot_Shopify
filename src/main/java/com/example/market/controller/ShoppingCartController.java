@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/shopping-cart")
+@RequestMapping("/carts")
 public class ShoppingCartController {
     @Autowired
     private IShoppingCartService shoppingCartService;

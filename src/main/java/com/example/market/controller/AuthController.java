@@ -1,9 +1,11 @@
 package com.example.market.controller;
 
+import com.example.market.model.ShoppingCart;
 import com.example.market.model.auth.JwtResponse;
 import com.example.market.model.auth.User;
 import com.example.market.service.JwtService;
 import com.example.market.service.role.IRoleService;
+import com.example.market.service.shoppingCart.IShoppingCartService;
 import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ public class AuthController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IShoppingCartService shoppingCartService;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -53,6 +58,9 @@ public class AuthController {
             }
         }
         userService.save(user);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartService.save(shoppingCart);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

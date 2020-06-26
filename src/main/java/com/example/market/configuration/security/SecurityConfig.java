@@ -3,9 +3,11 @@ package com.example.market.configuration.security;
 import com.example.market.configuration.custom.CustomAccessDeniedHandler;
 import com.example.market.configuration.custom.RestAuthenticationEntryPoint;
 import com.example.market.configuration.filter.JwtAuthenticationFilter;
+import com.example.market.model.ShoppingCart;
 import com.example.market.model.auth.Role;
 import com.example.market.model.auth.RoleName;
 import com.example.market.model.auth.User;
+import com.example.market.service.shoppingCart.IShoppingCartService;
 import com.example.market.service.user.UserService;
 import com.example.market.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private RoleService roleService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private IShoppingCartService shoppingCartService;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -89,6 +91,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             admin.setPassword("123456");
             admin.setRoles(roles);
             userService.save(admin);
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setUser(admin);
+            shoppingCartService.save(shoppingCart);
         }
     }
 

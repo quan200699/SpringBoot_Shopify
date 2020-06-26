@@ -1,6 +1,7 @@
 package com.example.market.service.shoppingCart;
 
 import com.example.market.model.ShoppingCart;
+import com.example.market.model.auth.User;
 import com.example.market.repository.IShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class ShoppingCartService implements IShoppingCartService {
     @Override
     public void remove(Long id) {
         shoppingCartRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<ShoppingCart> findByUser(User user) {
+        return shoppingCartRepository.findByUser(user);
     }
 }

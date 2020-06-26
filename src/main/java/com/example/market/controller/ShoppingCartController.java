@@ -1,7 +1,9 @@
 package com.example.market.controller;
 
 import com.example.market.model.ShoppingCart;
+import com.example.market.model.auth.User;
 import com.example.market.service.shoppingCart.IShoppingCartService;
+import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class ShoppingCartController {
     @Autowired
     private IShoppingCartService shoppingCartService;
+
+    @Autowired
+    private IUserService userService;
 
     @GetMapping
     public ResponseEntity<Iterable<ShoppingCart>> getAllShoppingCart() {
@@ -49,5 +54,16 @@ public class ShoppingCartController {
             shoppingCartService.remove(id);
             return new ResponseEntity<>(shoppingCart, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<ShoppingCart> findShoppingCartByUser(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (!user.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<ShoppingCart> shoppingCartOptional = shoppingCartService.findByUser(user.get());
+        return shoppingCartOptional.map(shoppingCart -> new ResponseEntity<>(shoppingCart, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

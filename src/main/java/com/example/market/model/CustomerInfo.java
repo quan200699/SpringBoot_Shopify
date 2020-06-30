@@ -1,11 +1,9 @@
 package com.example.market.model;
 
+import com.example.market.model.auth.User;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -23,4 +21,7 @@ public class CustomerInfo {
     private String email;
 
     private String notice;
+
+    @ManyToOne
+    private User user;
 }

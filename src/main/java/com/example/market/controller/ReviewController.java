@@ -24,7 +24,7 @@ public class ReviewController {
     @GetMapping("/{id}")
     public ResponseEntity<Review> getReview(@PathVariable Long id) {
         Optional<Review> reviewOptional = reviewService.findById(id);
-        return reviewOptional.map(item -> new ResponseEntity<>(item, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return reviewOptional.map(review -> new ResponseEntity<>(review, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
@@ -35,8 +35,8 @@ public class ReviewController {
     @PutMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
         Optional<Review> reviewOptional = reviewService.findById(id);
-        return reviewOptional.map(item1 -> {
-            review.setId(item1.getId());
+        return reviewOptional.map(review1 -> {
+            review.setId(review1.getId());
             reviewService.save(review);
             return new ResponseEntity<>(review, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -45,9 +45,9 @@ public class ReviewController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Review> deleteReview(@PathVariable Long id) {
         Optional<Review> reviewOptional = reviewService.findById(id);
-        return reviewOptional.map(item -> {
+        return reviewOptional.map(review -> {
             reviewService.remove(id);
-            return new ResponseEntity<>(item, HttpStatus.OK);
+            return new ResponseEntity<>(review, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

@@ -31,4 +31,9 @@ public class OrdersDetailService implements IOrdersDetailService {
     public void remove(Long id) {
         orderDetailRepository.deleteById(id);
     }
+
+    @Override
+    public Integer sumProductAmount(Long id) {
+        return orderDetailRepository.sumProductAmount(id);
+    }
 }

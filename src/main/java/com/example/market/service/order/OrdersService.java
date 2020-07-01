@@ -33,11 +33,6 @@ public class OrdersService implements IOrdersService {
         ordersRepository.deleteById(id);
     }
 
-//    @Override
-//    public Integer sumProductAmount(Long id) {
-//        return ordersRepository.sumProductAmount(id);
-//    }
-
     @Override
     public Iterable<Orders> findAllByUser(User user) {
         return ordersRepository.findAllByUser(user);

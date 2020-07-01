@@ -5,8 +5,6 @@ import com.example.market.model.auth.User;
 import com.example.market.service.IGeneralService;
 
 public interface IOrdersService extends IGeneralService<Orders> {
-//    Integer sumProductAmount(Long id);
-
     Iterable<Orders> findAllByUser(User user);
 
     Iterable<Orders> findAllByStatus(Boolean status);

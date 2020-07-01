@@ -1,8 +1,10 @@
 package com.example.market.controller;
 
 import com.example.market.model.Orders;
+import com.example.market.model.OrdersDetail;
 import com.example.market.model.auth.User;
 import com.example.market.service.order.IOrdersService;
+import com.example.market.service.orderDetail.IOrdersDetailService;
 import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class OrdersController {
     @Autowired
     private IOrdersService ordersService;
+
+    @Autowired
+    private IOrdersDetailService ordersDetailService;
 
     @Autowired
     private IUserService userService;
@@ -69,5 +74,11 @@ public class OrdersController {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(ordersService.findAllByUser(user),
                 HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/order-details")
+    public ResponseEntity<Iterable<OrdersDetail>> findAllOrderDetailByOrder(@PathVariable Long id) {
+        Optional<Orders> ordersOptional = ordersService.findById(id);
+        return ordersOptional.map(orders -> new ResponseEntity<>(ordersDetailService.findAllByOrders(orders), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

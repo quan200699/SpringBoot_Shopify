@@ -1,5 +1,6 @@
 package com.example.market.service.orderDetail;
 
+import com.example.market.model.Orders;
 import com.example.market.model.OrdersDetail;
 import com.example.market.repository.IOrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,10 @@ public class OrdersDetailService implements IOrdersDetailService {
     @Override
     public Integer sumProductAmount(Long id) {
         return orderDetailRepository.sumProductAmount(id);
+    }
+
+    @Override
+    public Iterable<OrdersDetail> findAllByOrders(Orders orders) {
+        return orderDetailRepository.findAllByOrders(orders);
     }
 }

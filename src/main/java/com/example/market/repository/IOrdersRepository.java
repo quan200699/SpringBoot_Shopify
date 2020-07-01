@@ -13,7 +13,7 @@ public interface IOrdersRepository extends JpaRepository<Orders, Long> {
 
     Iterable<Orders> findAllByStatus(Boolean status);
 
-    @Query("SELECT od.product FROM Orders o left join OrdersDetail od on o.id = od.orders.id" +
+    @Query("SELECT DISTINCT od.product FROM Orders o left join OrdersDetail od on o.id = od.orders.id" +
             " WHERE o.user = ?1")
     Iterable<Product> findAllProductUserBought(User user);
 }

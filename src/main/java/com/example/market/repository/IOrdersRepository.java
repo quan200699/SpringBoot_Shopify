@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IOrdersRepository extends JpaRepository<Orders, Long> {
-    @Query("select sum(o.amount) from Product p left join Orders o on p.id = o.product.id where p.id = ?1 group by p.id")
-    Integer sumProductAmount(Long id);
+//    @Query("select sum(o.amount) from Product p left join Orders o on p.id = o.product.id where p.id = ?1 group by p.id")
+//    Integer sumProductAmount(Long id);
 
     Iterable<Orders> findAllByUser(User user);
 

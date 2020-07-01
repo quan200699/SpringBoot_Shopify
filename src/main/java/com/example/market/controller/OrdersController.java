@@ -60,13 +60,13 @@ public class OrdersController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/sum")
-    public ResponseEntity<Integer> sumAmount(@PathVariable Long id) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(ordersService.sumProductAmount(id), HttpStatus.OK);
-    }
+//    @GetMapping("/{id}/sum")
+//    public ResponseEntity<Integer> sumAmount(@PathVariable Long id) {
+//        if (id == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(ordersService.sumProductAmount(id), HttpStatus.OK);
+//    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<Iterable<Orders>> getAllOrderByUser(@PathVariable Long id) {

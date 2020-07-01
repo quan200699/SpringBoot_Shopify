@@ -1,6 +1,7 @@
 package com.example.market.service.order;
 
 import com.example.market.model.Orders;
+import com.example.market.model.Product;
 import com.example.market.model.auth.User;
 import com.example.market.repository.IOrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,10 @@ public class OrdersService implements IOrdersService {
     @Override
     public Iterable<Orders> findAllByStatus(Boolean status) {
         return ordersRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public Iterable<Product> findAllProductUserBought(User user) {
+        return ordersRepository.findAllProductUserBought(user);
     }
 }

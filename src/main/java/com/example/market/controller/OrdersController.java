@@ -70,9 +70,9 @@ public class OrdersController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Iterable<Orders>> getAllOrderByUser(@PathVariable Long id) {
+    public ResponseEntity<Iterable<Orders>> getAllOrderByUser(@PathVariable Long id, @RequestParam Boolean status) {
         Optional<User> userOptional = userService.findById(id);
-        return userOptional.map(user -> new ResponseEntity<>(ordersService.findAllByUser(user),
+        return userOptional.map(user -> new ResponseEntity<>(ordersService.findAllByUserAndStatus(user, status),
                 HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

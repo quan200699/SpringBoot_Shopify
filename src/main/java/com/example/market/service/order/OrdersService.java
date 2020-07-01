@@ -34,8 +34,8 @@ public class OrdersService implements IOrdersService {
     }
 
     @Override
-    public Iterable<Orders> findAllByUser(User user) {
-        return ordersRepository.findAllByUser(user);
+    public Iterable<Orders> findAllByUserAndStatus(User user, Boolean status) {
+        return ordersRepository.findAllByUserAndStatus(user, status);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.example.market.model.auth.User;
 import com.example.market.service.IGeneralService;
 
 public interface IOrdersService extends IGeneralService<Orders> {
-    Iterable<Orders> findAllByUser(User user);
+    Iterable<Orders> findAllByUserAndStatus(User user, Boolean status);
 
     Iterable<Orders> findAllByStatus(Boolean status);
 }

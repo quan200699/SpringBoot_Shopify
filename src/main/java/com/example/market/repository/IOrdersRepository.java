@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IOrdersRepository extends JpaRepository<Orders, Long> {
-    Iterable<Orders> findAllByUser(User user);
+    Iterable<Orders> findAllByUserAndStatus(User user, Boolean status);
 
     Iterable<Orders> findAllByStatus(Boolean status);
 }

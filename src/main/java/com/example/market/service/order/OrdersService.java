@@ -1,6 +1,7 @@
 package com.example.market.service.order;
 
 import com.example.market.model.Orders;
+import com.example.market.model.auth.User;
 import com.example.market.repository.IOrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,15 @@ public class OrdersService implements IOrdersService {
     @Override
     public Integer sumProductAmount(Long id) {
         return ordersRepository.sumProductAmount(id);
+    }
+
+    @Override
+    public Iterable<Orders> findAllByUser(User user) {
+        return ordersRepository.findAllByUser(user);
+    }
+
+    @Override
+    public Iterable<Orders> findAllByStatus(Boolean status) {
+        return ordersRepository.findAllByStatus(status);
     }
 }

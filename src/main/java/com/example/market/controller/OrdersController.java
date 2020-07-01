@@ -1,7 +1,9 @@
 package com.example.market.controller;
 
 import com.example.market.model.Orders;
+import com.example.market.model.auth.User;
 import com.example.market.service.order.IOrdersService;
+import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,15 @@ public class OrdersController {
     @Autowired
     private IOrdersService ordersService;
 
+    @Autowired
+    private IUserService userService;
+
     @GetMapping
-    public ResponseEntity<Iterable<Orders>> getAllOrders() {
-        return new ResponseEntity<>(ordersService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Orders>> getAllOrders(@RequestParam Boolean status) {
+        if (status == null) {
+            return new ResponseEntity<>(ordersService.findAll(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(ordersService.findAllByStatus(status), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -58,5 +66,12 @@ public class OrdersController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ordersService.sumProductAmount(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<Iterable<Orders>> getAllOrderByUser(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(user -> new ResponseEntity<>(ordersService.findAllByUser(user),
+                HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

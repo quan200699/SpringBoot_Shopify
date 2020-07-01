@@ -14,6 +14,8 @@ public class Orders {
 
     private int amount;
 
+    private boolean status;
+
     @ManyToOne
     private User user;
 

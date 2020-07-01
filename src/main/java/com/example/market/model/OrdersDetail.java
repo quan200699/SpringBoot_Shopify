@@ -15,4 +15,7 @@ public class OrdersDetail {
 
     @ManyToOne
     private Product product;
+
+    @ManyToOne
+    private Orders orders;
 }

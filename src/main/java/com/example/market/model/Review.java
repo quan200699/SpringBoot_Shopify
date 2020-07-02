@@ -4,6 +4,7 @@ import com.example.market.model.auth.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,6 +16,8 @@ public class Review {
     private int evaluate;
 
     private String comment;
+
+    private Date createDate;
 
     @ManyToOne
     private User user;

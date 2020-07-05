@@ -74,4 +74,9 @@ public class WarehouseBillController {
         }
         return new ResponseEntity<>(warehouseBillDetailService.findAllByWareHouseBill(warehousingBillOptional.get()), HttpStatus.OK);
     }
+
+    @GetMapping("/total-price")
+    public ResponseEntity<Long> sumTotalPrice(@RequestParam(name = "month") Integer month, @RequestParam(name = "year") Integer year) {
+        return new ResponseEntity<>(warehousingBillService.sumTotalPriceHaveBought(month, year), HttpStatus.OK);
+    }
 }

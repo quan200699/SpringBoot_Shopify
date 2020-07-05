@@ -31,4 +31,9 @@ public class WarehousingBillService implements IWarehousingBillService {
     public void remove(Long id) {
         warehosingBillRepository.deleteById(id);
     }
+
+    @Override
+    public Long sumTotalPriceHaveBought(Integer month, Integer year) {
+        return warehosingBillRepository.sumTotalPriceHaveBought(month, year);
+    }
 }

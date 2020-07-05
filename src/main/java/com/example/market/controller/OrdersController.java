@@ -89,4 +89,9 @@ public class OrdersController {
         return userOptional.map(user -> new ResponseEntity<>(ordersService.findAllProductUserBought(user), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/total-price")
+    public ResponseEntity<Long> sumTotalPriceByMonthAndYear(@RequestParam(name = "month") Integer month, @RequestParam(name = "year") Integer year) {
+        return new ResponseEntity<>(ordersService.sumTotalPriceInput(month, year), HttpStatus.OK);
+    }
 }

@@ -48,4 +48,9 @@ public class OrdersService implements IOrdersService {
     public Iterable<Product> findAllProductUserBought(User user) {
         return ordersRepository.findAllProductUserBought(user);
     }
+
+    @Override
+    public Long sumTotalPriceInput(Integer month, Integer year) {
+        return ordersRepository.sumTotalPriceInput(month, year);
+    }
 }

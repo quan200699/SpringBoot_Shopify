@@ -16,4 +16,11 @@ public interface IOrdersRepository extends JpaRepository<Orders, Long> {
     @Query("SELECT DISTINCT od.product FROM Orders o left join OrdersDetail od on o.id = od.orders.id" +
             " WHERE o.user = ?1 and o.status = true")
     Iterable<Product> findAllProductUserBought(User user);
+
+    @Query(value = "select sum(amount * price) " +
+            "from market.orders " +
+            "left join market.orders_detail od on orders.id = od.orders_id " +
+            "left join market.product p on od.product_id = p.id " +
+            "where month(create_date) = ?1 and year(create_date) = ?2", nativeQuery = true)
+    Long sumTotalPriceInput(Integer month, Integer year);
 }

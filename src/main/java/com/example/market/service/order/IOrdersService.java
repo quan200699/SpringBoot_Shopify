@@ -11,4 +11,6 @@ public interface IOrdersService extends IGeneralService<Orders> {
     Iterable<Orders> findAllByStatus(Boolean status);
 
     Iterable<Product> findAllProductUserBought(User user);
+
+    Long sumTotalPriceInput(Integer month, Integer year);
 }

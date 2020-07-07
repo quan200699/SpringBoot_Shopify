@@ -38,4 +38,9 @@ public class ReviewService implements IReviewService {
     public Review findByUserAndProduct(User user, Product product) {
         return reviewRepository.findByUserAndProduct(user, product);
     }
+
+    @Override
+    public Iterable<Review> findAllByProduct(Product product) {
+        return reviewRepository.findAllByProduct(product);
+    }
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IReviewRepository extends JpaRepository<Review, Long> {
     Review findByUserAndProduct(User user, Product product);
+
+    Iterable<Review> findAllByProduct(Product product);
 }

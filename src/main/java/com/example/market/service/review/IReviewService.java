@@ -7,4 +7,5 @@ import com.example.market.service.IGeneralService;
 
 public interface IReviewService extends IGeneralService<Review> {
     Review findByUserAndProduct(User user, Product product);
+    Iterable<Review> findAllByProduct(Product product);
 }

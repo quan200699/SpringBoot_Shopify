@@ -2,8 +2,10 @@ package com.example.market.controller;
 
 import com.example.market.model.Image;
 import com.example.market.model.Product;
+import com.example.market.model.Review;
 import com.example.market.service.image.IImageService;
 import com.example.market.service.product.IProductService;
+import com.example.market.service.review.IReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class ProductController {
 
     @Autowired
     private IImageService imageService;
+
+    @Autowired
+    private IReviewService reviewService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProduct() {
@@ -81,5 +86,11 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<Iterable<Product>> getAllProductByName(@RequestParam(name = "name") String name) {
         return new ResponseEntity<>(productService.findAllByNameContaining(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/reviews")
+    public ResponseEntity<Iterable<Review>> getAllReviewByProduct(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        return productOptional.map(product -> new ResponseEntity<>(reviewService.findAllByProduct(product), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

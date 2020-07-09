@@ -15,7 +15,7 @@ public class NotificationService implements INotificationService {
 
     @Override
     public Iterable<Notification> findAll() {
-        return notificationRepository.findAll();
+        return notificationRepository.findAllDateDesc();
     }
 
     @Override

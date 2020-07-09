@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface INotificationRepository extends JpaRepository<Notification, Long> {
     Iterable<Notification> findAllByStatusIsFalseAndUser(User user);
 
-    @Query(value = "select * from notification " +
+    @Query(value = "select * from market.notification where notification.user_id = ?1 " +
             "order by create_date desc ", nativeQuery = true)
-    Iterable<Notification> findAllDateDesc();
+    Iterable<Notification> findAllDateDesc(Long id);
 }

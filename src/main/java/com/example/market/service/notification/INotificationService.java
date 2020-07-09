@@ -6,4 +6,6 @@ import com.example.market.service.IGeneralService;
 
 public interface INotificationService extends IGeneralService<Notification> {
     Iterable<Notification> findAllByStatusIsFalseAndUser(User user);
+
+    Iterable<Notification> findAllDateDesc(Long id);
 }

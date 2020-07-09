@@ -1,6 +1,7 @@
 package com.example.market.service.notification;
 
 import com.example.market.model.Notification;
+import com.example.market.model.auth.User;
 import com.example.market.repository.INotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class NotificationService implements INotificationService {
     @Override
     public void remove(Long id) {
         notificationRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Notification> findAllByStatusIsFalseAndUser(User user) {
+        return notificationRepository.findAllByStatusIsFalseAndUser(user);
     }
 }

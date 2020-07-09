@@ -14,6 +14,8 @@ public class Notification {
 
     private String message;
 
+    private boolean status;
+
     @ManyToOne
     private User user;
 }

@@ -1,6 +1,5 @@
 package com.example.market.controller;
 
-import com.example.market.model.Item;
 import com.example.market.model.Notification;
 import com.example.market.service.notification.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -30,6 +30,9 @@ public class NotificationController {
 
     @PostMapping
     public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        notification.setCreateDate(date);
         return new ResponseEntity<>(notificationService.save(notification), HttpStatus.OK);
     }
 

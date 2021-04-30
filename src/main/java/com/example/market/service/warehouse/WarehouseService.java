@@ -1,6 +1,7 @@
 package com.example.market.service.warehouse;
 
 import com.example.market.model.Warehouse;
+import com.example.market.model.query.IProductWarehouse;
 import com.example.market.repository.IWarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public void remove(Long id) {
         warehouseRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<IProductWarehouse> getProductInventory(Long warehouseId) {
+        return warehouseRepository.getProductInventory(warehouseId);
     }
 }

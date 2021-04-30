@@ -1,6 +1,7 @@
 package com.example.market.controller;
 
 import com.example.market.model.Warehouse;
+import com.example.market.model.query.IProductWarehouse;
 import com.example.market.service.warehouse.IWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +52,11 @@ public class WarehouseController {
         }
         warehouseService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<Iterable<IProductWarehouse>> findAllProductInventoryByWarehouse(@PathVariable Long id){
+        Optional<Warehouse> warehouse = warehouseService.findById(id);
+        return warehouse.map(value -> new ResponseEntity<>(warehouseService.getProductInventory(id), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

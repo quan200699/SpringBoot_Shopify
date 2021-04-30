@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +24,9 @@ public class BillController {
 
     @PostMapping
     public ResponseEntity<Bill> createNewBill(@RequestBody Bill bill) {
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        bill.setCreateDate(date);
         return new ResponseEntity<>(billService.save(bill), HttpStatus.OK);
     }
 

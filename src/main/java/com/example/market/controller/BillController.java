@@ -1,7 +1,9 @@
 package com.example.market.controller;
 
 import com.example.market.model.Bill;
+import com.example.market.model.BillDetail;
 import com.example.market.service.bill.IBillService;
+import com.example.market.service.billDetail.IBillDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class BillController {
     @Autowired
     private IBillService billService;
+
+    @Autowired
+    private IBillDetailService billDetailService;
 
     @GetMapping
     public ResponseEntity<Iterable<Bill>> getAllBill() {
@@ -53,5 +58,14 @@ public class BillController {
             billService.remove(id);
             return new ResponseEntity<>(bill, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/bill-details")
+    public ResponseEntity<Iterable<BillDetail>> getAllBillDetail(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (!billOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(billDetailService.findAllByBill(billOptional.get()), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.market.service.billDetail;
 
+import com.example.market.model.Bill;
 import com.example.market.model.BillDetail;
 import com.example.market.repository.IBillDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class BillDetailService implements IBillDetailService {
     @Override
     public void remove(Long id) {
         billDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<BillDetail> findAllByBill(Bill bill) {
+        return billDetailRepository.findAllByBill(bill);
     }
 }

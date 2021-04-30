@@ -12,6 +12,9 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(50)", unique = true, nullable = false)
+    private String code;
+
     private Date createDate;
 
     @ManyToOne

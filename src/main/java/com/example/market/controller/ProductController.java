@@ -3,6 +3,7 @@ package com.example.market.controller;
 import com.example.market.model.Image;
 import com.example.market.model.Product;
 import com.example.market.model.Review;
+import com.example.market.model.query.IProductWarehouse;
 import com.example.market.service.image.IImageService;
 import com.example.market.service.product.IProductService;
 import com.example.market.service.review.IReviewService;
@@ -29,6 +30,11 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProduct() {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/inventory")
+    public ResponseEntity<Iterable<IProductWarehouse>> getAllProductInventory() {
+        return new ResponseEntity<>(productService.findAllProductInventoryAmount(), HttpStatus.OK);
     }
 
     @GetMapping("/pagination")

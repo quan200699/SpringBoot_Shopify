@@ -2,6 +2,7 @@ package com.example.market.repository;
 
 import com.example.market.model.Category;
 import com.example.market.model.Product;
+import com.example.market.model.query.IProductWarehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     Iterable<Product> findAllProductOrderByDate();
 
     Iterable<Product> findAllByNameContaining(String name);
+
+    @Query(value = "call market.productTotalAmount()",nativeQuery = true)
+    Iterable<IProductWarehouse> findAllProductInventoryAmount();
 }

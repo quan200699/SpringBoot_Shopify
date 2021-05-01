@@ -2,6 +2,7 @@ package com.example.market.service.product;
 
 import com.example.market.model.Category;
 import com.example.market.model.Product;
+import com.example.market.model.query.IProductWarehouse;
 import com.example.market.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,5 +70,10 @@ public class ProductService implements IProductService {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Product> products = productRepository.findAll(pageRequest);
         return products.getContent();
+    }
+
+    @Override
+    public Iterable<IProductWarehouse> findAllProductInventoryAmount() {
+        return productRepository.findAllProductInventoryAmount();
     }
 }

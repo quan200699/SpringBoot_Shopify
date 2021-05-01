@@ -14,4 +14,6 @@ public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllProductOrderByDate();
 
     Iterable<Product> findAllByNameContaining(String name);
+
+    Iterable<Product> findAll(int page, int size);
 }

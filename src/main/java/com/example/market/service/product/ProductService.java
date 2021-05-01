@@ -4,6 +4,8 @@ import com.example.market.model.Category;
 import com.example.market.model.Product;
 import com.example.market.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -60,5 +62,12 @@ public class ProductService implements IProductService {
     @Override
     public Iterable<Product> findAllByNameContaining(String name) {
         return productRepository.findAllByNameContaining(name);
+    }
+
+    @Override
+    public Iterable<Product> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> products = productRepository.findAll(pageRequest);
+        return products.getContent();
     }
 }

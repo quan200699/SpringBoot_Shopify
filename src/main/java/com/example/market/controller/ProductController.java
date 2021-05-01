@@ -31,6 +31,12 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/pagination")
+    public ResponseEntity<Iterable<Product>> getAllProductUsingPagination(@RequestParam int page, @RequestParam int size) {
+        Iterable<Product> products = productService.findAll(page, size);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);

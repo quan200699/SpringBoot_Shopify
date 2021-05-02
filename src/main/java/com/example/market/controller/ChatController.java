@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -17,12 +18,17 @@ public class ChatController {
     private IChatService chatService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Chat>> getAllChat() {
-        return new ResponseEntity<>(chatService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Chat>> getAllChat(@RequestParam("userId1") Long userId1,
+                                                     @RequestParam("userId2") Long userId2,
+                                                     @RequestParam("size") Integer size) {
+        return new ResponseEntity<>(chatService.getAllHistoryBetweenTwoUser(userId1, userId2, size), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Chat> createNewChat(@RequestBody Chat chat) {
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        chat.setTime(date);
         return new ResponseEntity<>(chatService.save(chat), HttpStatus.OK);
     }
 

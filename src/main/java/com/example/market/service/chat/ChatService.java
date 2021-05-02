@@ -12,7 +12,6 @@ public class ChatService implements IChatService {
     @Autowired
     private IChatRepository chatRepository;
 
-
     @Override
     public Iterable<Chat> findAll() {
         return chatRepository.findAll();
@@ -31,5 +30,10 @@ public class ChatService implements IChatService {
     @Override
     public void remove(Long id) {
         chatRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Chat> getAllHistoryBetweenTwoUser(Long user1Id, Long user2Id, Integer size) {
+        return chatRepository.getAllHistoryBetweenTwoUser(user1Id, user2Id, size);
     }
 }

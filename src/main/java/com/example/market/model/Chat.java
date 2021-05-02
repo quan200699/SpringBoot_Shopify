@@ -4,6 +4,7 @@ import com.example.market.model.auth.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,4 +22,6 @@ public class Chat {
     private String content;
 
     private boolean status;
+
+    private Date time;
 }

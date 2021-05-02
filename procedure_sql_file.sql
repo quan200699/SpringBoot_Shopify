@@ -92,3 +92,21 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE getAllChatBetweenTwoUser(IN userId1 BIGINT, IN userId2 BIGINT, IN size INT)
+BEGIN
+    DROP TEMPORARY TABLE if exists getChatBetweenTwoUserPagination;
+    create temporary table getChatBetweenTwoUserPagination
+    select *
+    from market.chat
+    where (receiver_id = userId1 and sender_id = userId2)
+       or (receiver_id = userId2 and sender_id = userId1)
+    order by chat.time desc
+    limit size offset 0;
+    select *
+    from getChatBetweenTwoUserPagination
+    order by time;
+END //
+
+DELIMITER ;

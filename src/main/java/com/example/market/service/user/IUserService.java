@@ -1,6 +1,7 @@
 package com.example.market.service.user;
 
 import com.example.market.model.auth.User;
+import com.example.market.model.query.IUserChat;
 import com.example.market.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -8,5 +9,6 @@ import java.util.Optional;
 
 public interface IUserService extends IGeneralService<User>, UserDetailsService {
     Optional<User> findByEmail(String email);
-    Iterable<User> getAllUserHasRoleUser();
+    Iterable<IUserChat> getAllUserHasRoleUser();
+    IUserChat getUserChatInfo(Long id);
 }

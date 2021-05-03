@@ -4,6 +4,7 @@ import com.example.market.model.Notification;
 import com.example.market.model.ShoppingCart;
 import com.example.market.model.auth.JwtResponse;
 import com.example.market.model.auth.User;
+import com.example.market.model.query.IUserChat;
 import com.example.market.service.JwtService;
 import com.example.market.service.notification.INotificationService;
 import com.example.market.service.shoppingCart.IShoppingCartService;
@@ -79,7 +80,7 @@ public class AuthController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> getAllUser() {
+    public ResponseEntity<Iterable<IUserChat>> getAllUser() {
         return new ResponseEntity<>(userService.getAllUserHasRoleUser(), HttpStatus.OK);
     }
 }

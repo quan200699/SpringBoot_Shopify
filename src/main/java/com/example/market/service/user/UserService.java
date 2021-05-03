@@ -3,6 +3,7 @@ package com.example.market.service.user;
 import com.example.market.model.auth.Role;
 import com.example.market.model.auth.User;
 import com.example.market.model.auth.UserPrinciple;
+import com.example.market.model.query.IUserChat;
 import com.example.market.repository.IUserRepository;
 import com.example.market.service.role.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static com.example.market.model.auth.RoleName.ROLE_USER;
 
@@ -21,6 +20,10 @@ import static com.example.market.model.auth.RoleName.ROLE_USER;
 public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    private IRoleService roleService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<User> findAll() {
@@ -31,12 +34,6 @@ public class UserService implements IUserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
-
-    @Autowired
-    private IRoleService roleService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public User save(User user) {
@@ -70,7 +67,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Iterable<User> getAllUserHasRoleUser() {
-        return userRepository.getAllUserHasRoleUser();
+    public Iterable<IUserChat> getAllUserHasRoleUser() {
+        List<User> users = (List<User>) userRepository.getAllUserHasRoleUser();
+        List<IUserChat> userChats = new ArrayList<>();
+        for (User user : users) {
+            userChats.add(this.getUserChatInfo(user.getId()));
+        }
+        return userChats;
+    }
+
+    @Override
+    public IUserChat getUserChatInfo(Long id) {
+        return userRepository.getUserChatInfo(id);
     }
 }

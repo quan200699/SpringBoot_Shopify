@@ -5,6 +5,8 @@ import com.example.market.service.chat.IChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,6 +32,16 @@ public class ChatController {
         Date date = new Date(milis);
         chat.setTime(date);
         return new ResponseEntity<>(chatService.save(chat), HttpStatus.OK);
+    }
+
+    @MessageMapping("/chats")
+    @SendTo("/topic/chats")
+    public Chat chatting(Chat chat) {
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        chat.setTime(date);
+        chatService.save(chat);
+        return chat;
     }
 
     @GetMapping("/{id}")

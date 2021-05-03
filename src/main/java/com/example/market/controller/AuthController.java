@@ -6,7 +6,6 @@ import com.example.market.model.auth.JwtResponse;
 import com.example.market.model.auth.User;
 import com.example.market.service.JwtService;
 import com.example.market.service.notification.INotificationService;
-import com.example.market.service.role.IRoleService;
 import com.example.market.service.shoppingCart.IShoppingCartService;
 import com.example.market.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -78,5 +76,10 @@ public class AuthController {
     public ResponseEntity<Iterable<Notification>> getAllNotificationByUserDateDesc(@PathVariable Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(notificationService.findAllDateDesc(id), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<Iterable<User>> getAllUser() {
+        return new ResponseEntity<>(userService.getAllUserHasRoleUser(), HttpStatus.OK);
     }
 }

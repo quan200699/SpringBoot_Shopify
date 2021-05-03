@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface IUserService extends IGeneralService<User>, UserDetailsService {
     Optional<User> findByEmail(String email);
+    Iterable<User> getAllUserHasRoleUser();
 }

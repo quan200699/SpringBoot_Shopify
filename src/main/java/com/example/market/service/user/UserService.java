@@ -68,4 +68,9 @@ public class UserService implements IUserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public Iterable<User> getAllUserHasRoleUser() {
+        return userRepository.getAllUserHasRoleUser();
+    }
 }

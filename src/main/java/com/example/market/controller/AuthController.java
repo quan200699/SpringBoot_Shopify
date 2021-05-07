@@ -83,4 +83,11 @@ public class AuthController {
     public ResponseEntity<Iterable<IUserChat>> getAllUser() {
         return new ResponseEntity<>(userService.getAllUserHasRoleUser(), HttpStatus.OK);
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

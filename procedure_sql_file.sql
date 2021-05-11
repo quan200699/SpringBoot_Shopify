@@ -39,7 +39,7 @@ CREATE PROCEDURE getProductInventory(in warehouseId BIGINT)
 BEGIN
     CALL productInputTempTable (warehouseId);
     CALL productOutputTempTable (warehouseId);
-    SELECT p1.id, p1.name, IF(p2.amount is null, 0, (p1.amount - p2.amount)) as amount
+    SELECT p1.id, p1.name, IF(p2.amount is null, p1.amount, (p1.amount - p2.amount)) as amount
     FROM productInputTable p1 left join productOutputTable p2 on p1.id = p2.id;
 END //
 

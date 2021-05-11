@@ -110,3 +110,14 @@ BEGIN
 END //
 
 DELIMITER ;
+
+drop view product_best_sell_view;
+create view product_best_sell_view as
+select product.id, product.name, product.price * (1 - product.sale_off / 100) as price, IFNULL(sum(amount), 0) as total
+from product left join orders_detail od on product.id = od.product_id
+group by product.id, product.name
+order by sum(amount) desc
+LIMIT 3;
+
+select product_best_sell_view.id, product_best_sell_view.name, image.url, product_best_sell_view.price
+from product_best_sell_view left join image on product_best_sell_view.id = image.id;

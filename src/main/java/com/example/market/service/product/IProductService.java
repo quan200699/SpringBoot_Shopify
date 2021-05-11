@@ -2,6 +2,7 @@ package com.example.market.service.product;
 
 import com.example.market.model.Category;
 import com.example.market.model.Product;
+import com.example.market.model.query.IProductImage;
 import com.example.market.model.query.IProductWarehouse;
 import com.example.market.service.IGeneralService;
 
@@ -19,4 +20,6 @@ public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAll(int page, int size);
 
     Iterable<IProductWarehouse> findAllProductInventoryAmount();
+
+    Iterable<IProductImage> getAllProductBestSell();
 }

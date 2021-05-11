@@ -3,6 +3,7 @@ package com.example.market.controller;
 import com.example.market.model.Image;
 import com.example.market.model.Product;
 import com.example.market.model.Review;
+import com.example.market.model.query.IProductImage;
 import com.example.market.model.query.IProductWarehouse;
 import com.example.market.service.image.IImageService;
 import com.example.market.service.product.IProductService;
@@ -104,5 +105,10 @@ public class ProductController {
     public ResponseEntity<Iterable<Review>> getAllReviewByProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         return productOptional.map(product -> new ResponseEntity<>(reviewService.findAllByProduct(product), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/best-sell")
+    public ResponseEntity<Iterable<IProductImage>> getAllProductBestSell(){
+        return new ResponseEntity<>(productService.getAllProductBestSell(), HttpStatus.OK);
     }
 }

@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,8 +59,22 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Iterable<Product> findAllProductOrderByDate() {
-        return productRepository.findAllProductOrderByDate();
+    public Iterable<IProductImage> findAllProductOrderByDate() {
+        List<IProductImage> productImages = new ArrayList<>();
+        List<IProductImage> productImageLatest = (List<IProductImage>) productRepository.findAllProductOrderByDate();
+        for (IProductImage productImage : productImageLatest) {
+            if(productImages.isEmpty()){
+                productImages.add(productImage);
+            }else {
+                for (IProductImage productImage1 : productImages){
+                    if(!productImage1.getId().equals(productImage.getId())){
+                        productImages.add(productImage);
+                        break;
+                    }
+                }
+            }
+        }
+        return productImages;
     }
 
     @Override
@@ -81,5 +97,24 @@ public class ProductService implements IProductService {
     @Override
     public Iterable<IProductImage> getAllProductBestSell() {
         return productRepository.getAllProductBestSell();
+    }
+
+    @Override
+    public Iterable<IProductImage> getAllProductMostLiked() {
+        List<IProductImage> productImages = new ArrayList<>();
+        List<IProductImage> productImageMostLiked = (List<IProductImage>) productRepository.getAllProductMostLiked();
+        for (IProductImage productImage : productImageMostLiked) {
+            if(productImages.isEmpty()){
+                productImages.add(productImage);
+            }else {
+                for (IProductImage productImage1 : productImages){
+                    if(!productImage1.getId().equals(productImage.getId())){
+                        productImages.add(productImage);
+                        break;
+                    }
+                }
+            }
+        }
+        return productImages;
     }
 }

@@ -37,10 +37,11 @@ DELIMITER //
 
 CREATE PROCEDURE getProductInventory(in warehouseId BIGINT)
 BEGIN
-    CALL productInputTempTable (warehouseId);
-    CALL productOutputTempTable (warehouseId);
+    CALL productInputTempTable(warehouseId);
+    CALL productOutputTempTable(warehouseId);
     SELECT p1.id, p1.name, IF(p2.amount is null, p1.amount, (p1.amount - p2.amount)) as amount
-    FROM productInputTable p1 left join productOutputTable p2 on p1.id = p2.id;
+    FROM productInputTable p1
+             left join productOutputTable p2 on p1.id = p2.id;
 END //
 
 DELIMITER ;
@@ -113,11 +114,51 @@ DELIMITER ;
 
 drop view product_best_sell_view;
 create view product_best_sell_view as
-select product.id, product.name, product.price * (1 - product.sale_off / 100) as price, IFNULL(sum(amount), 0) as total
-from product left join orders_detail od on product.id = od.product_id
+select product.id,
+       product.name,
+       product.price * (1 - product.sale_off / 100) as price,
+       IFNULL(sum(amount), 0)                       as total
+from product
+         left join orders_detail od on product.id = od.product_id
 group by product.id, product.name
 order by sum(amount) desc
 LIMIT 3;
 
 select product_best_sell_view.id, product_best_sell_view.name, image.url, product_best_sell_view.price
-from product_best_sell_view left join image on product_best_sell_view.id = image.id;
+from product_best_sell_view
+         left join image on product_best_sell_view.id = image.id;
+
+drop view product_image;
+create view product_image as
+select product.id, product.name, product.price * (1 - product.sale_off / 100) as price, url, created_date
+from product
+         left join image i on product.id = i.product_id;
+
+drop view product_latest_id;
+create view product_latest_id as
+select id
+from product_image
+group by id
+order by created_date desc
+limit 3;
+
+create view product_latest as
+select *
+from product_image
+where id in (select * from product_latest_id);
+
+select *
+from product_latest;
+
+drop view product_most_liked_id;
+create view product_most_liked_id as
+select product_image.id, IFNULL(avg(evaluate), 0) as avgEvaluate
+from product_image left join review r on product_image.id = r.product_id
+group by product_image.id
+order by avgEvaluate desc
+limit 3;
+
+create view product_most_like as
+select id, name, price, url
+from product_image
+where id in (select id from product_most_liked_id);

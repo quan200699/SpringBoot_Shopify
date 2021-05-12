@@ -92,7 +92,7 @@ public class ProductController {
     }
 
     @GetMapping("/latest")
-    public ResponseEntity<Iterable<Product>> getAllProductLatest() {
+    public ResponseEntity<Iterable<IProductImage>> getAllProductLatest() {
         return new ResponseEntity<>(productService.findAllProductOrderByDate(), HttpStatus.OK);
     }
 
@@ -110,5 +110,10 @@ public class ProductController {
     @GetMapping("/best-sell")
     public ResponseEntity<Iterable<IProductImage>> getAllProductBestSell(){
         return new ResponseEntity<>(productService.getAllProductBestSell(), HttpStatus.OK);
+    }
+
+    @GetMapping("/most-liked")
+    public ResponseEntity<Iterable<IProductImage>> getAllProductMostLiked(){
+        return new ResponseEntity<>(productService.getAllProductMostLiked(), HttpStatus.OK);
     }
 }

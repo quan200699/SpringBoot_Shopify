@@ -18,8 +18,8 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product  p where p.price >= ?1 and p.price <= ?2")
     Iterable<Product> findAllByPriceCondition(double minValue, double maxValue);
 
-    @Query("select p from Product p order by p.createdDate asc ")
-    Iterable<Product> findAllProductOrderByDate();
+    @Query(value = "select * from market.product_latest", nativeQuery = true)
+    Iterable<IProductImage> findAllProductOrderByDate();
 
     Iterable<Product> findAllByNameContaining(String name);
 
@@ -30,4 +30,8 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "from market.product_best_sell_view left join market.image on product_best_sell_view.id = image.id;",
     nativeQuery = true)
     Iterable<IProductImage> getAllProductBestSell();
+
+    @Query(value = "select id,name,price,url from market.product_most_like " +
+            "where id in (select id from market.product_most_liked_id)", nativeQuery = true)
+    Iterable<IProductImage> getAllProductMostLiked();
 }

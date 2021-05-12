@@ -62,4 +62,11 @@ public class CategoryController {
         return categoryOptional.map(category -> new ResponseEntity<>(productService.findAllByCategory(category),
                 HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/{id}/products/pagination")
+    public ResponseEntity<Iterable<Product>> findAllProductByCategoryUsingPagination(@PathVariable Long id, @RequestParam int page, @RequestParam int size) {
+        Optional<Category> categoryOptional = categoryService.findById(id);
+        return categoryOptional.map(category -> new ResponseEntity<>(productService.findAllByCategory(category, page, size),
+                HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

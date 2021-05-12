@@ -49,6 +49,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Iterable<Product> findAllByCategory(Category category, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> products = productRepository.findAllByCategory(category, pageRequest);
+        return products.getContent();
+    }
+
+    @Override
     public Iterable<Product> findAllBySaleOffGreaterThanZero() {
         return productRepository.findAllBySaleOffGreaterThanZero();
     }
@@ -63,11 +70,11 @@ public class ProductService implements IProductService {
         List<IProductImage> productImages = new ArrayList<>();
         List<IProductImage> productImageLatest = (List<IProductImage>) productRepository.findAllProductOrderByDate();
         for (IProductImage productImage : productImageLatest) {
-            if(productImages.isEmpty()){
+            if (productImages.isEmpty()) {
                 productImages.add(productImage);
-            }else {
-                for (IProductImage productImage1 : productImages){
-                    if(!productImage1.getId().equals(productImage.getId())){
+            } else {
+                for (IProductImage productImage1 : productImages) {
+                    if (!productImage1.getId().equals(productImage.getId())) {
                         productImages.add(productImage);
                         break;
                     }
@@ -104,11 +111,11 @@ public class ProductService implements IProductService {
         List<IProductImage> productImages = new ArrayList<>();
         List<IProductImage> productImageMostLiked = (List<IProductImage>) productRepository.getAllProductMostLiked();
         for (IProductImage productImage : productImageMostLiked) {
-            if(productImages.isEmpty()){
+            if (productImages.isEmpty()) {
                 productImages.add(productImage);
-            }else {
-                for (IProductImage productImage1 : productImages){
-                    if(!productImage1.getId().equals(productImage.getId())){
+            } else {
+                for (IProductImage productImage1 : productImages) {
+                    if (!productImage1.getId().equals(productImage.getId())) {
                         productImages.add(productImage);
                         break;
                     }

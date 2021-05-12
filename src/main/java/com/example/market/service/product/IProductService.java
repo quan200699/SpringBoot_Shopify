@@ -9,6 +9,8 @@ import com.example.market.service.IGeneralService;
 public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllByCategory(Category category);
 
+    Iterable<Product> findAllByCategory(Category category, int page, int size);
+
     Iterable<Product> findAllBySaleOffGreaterThanZero();
 
     Iterable<Product> findAllByPriceCondition(double minValue, double maxValue);

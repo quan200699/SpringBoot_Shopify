@@ -34,15 +34,6 @@ public class ChatController {
         return new ResponseEntity<>(chatService.save(chat), HttpStatus.OK);
     }
 
-    @MessageMapping("/chats")
-    @SendTo("/topic/chats")
-    public Chat chatting(Chat chat) {
-        long milis = System.currentTimeMillis();
-        Date date = new Date(milis);
-        chat.setTime(date);
-        chatService.save(chat);
-        return chat;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Chat> getChat(@PathVariable Long id) {

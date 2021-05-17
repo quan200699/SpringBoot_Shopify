@@ -1,7 +1,9 @@
 package com.example.market.controller;
 
 import com.example.market.model.Chat;
+import com.example.market.model.Notification;
 import com.example.market.service.chat.IChatService;
+import com.example.market.service.notification.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -16,6 +18,9 @@ public class WebSocketController {
     @Autowired
     private IChatService chatService;
 
+    @Autowired
+    private INotificationService notificationService;
+
     @MessageMapping("/chats")
     @SendTo("/topic/chats")
     public Chat chatting(Chat chat) {
@@ -24,5 +29,15 @@ public class WebSocketController {
         chat.setTime(date);
         chatService.save(chat);
         return chat;
+    }
+
+    @MessageMapping("/notifications")
+    @SendTo("/topic/notifications")
+    public Notification pushNotification(Notification notification){
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        notification.setCreateDate(date);
+        notificationService.save(notification);
+        return notification;
     }
 }
